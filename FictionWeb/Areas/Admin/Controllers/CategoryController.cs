@@ -1,11 +1,14 @@
 ﻿using Fiction.DataAccess.Data;
 using Fiction.DataAccess.Repository.IRepository;
 using Fiction.Models;
+using Fiction.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FictionWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
