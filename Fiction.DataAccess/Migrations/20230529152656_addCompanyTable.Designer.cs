@@ -4,6 +4,7 @@ using Fiction.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fiction.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230529152656_addCompanyTable")]
+    partial class addCompanyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,38 +96,6 @@ namespace Fiction.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Ha Long City",
-                            Name = "Ha Long Sulution",
-                            PhoneNumber = "0234951456",
-                            PostalCode = "123321",
-                            State = "IK",
-                            StreetAdress = "123 Ha Long"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            City = "Vinh Thuan City",
-                            Name = "Vinh Thinh Sudio",
-                            PhoneNumber = "023232356",
-                            PostalCode = "124421",
-                            State = "IU",
-                            StreetAdress = "231 Vinh Thuan"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            City = "Cu Chi City",
-                            Name = "Tien Phat Media",
-                            PhoneNumber = "02343232156",
-                            PostalCode = "125891",
-                            State = "IO",
-                            StreetAdress = "222 Cu Chi"
-                        });
                 });
 
             modelBuilder.Entity("Fiction.Models.Product", b =>

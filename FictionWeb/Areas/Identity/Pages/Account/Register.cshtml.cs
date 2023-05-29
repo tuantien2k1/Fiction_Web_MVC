@@ -112,7 +112,7 @@ namespace FictionWeb.Areas.Identity.Pages.Account
             [Required]
             public string Name { get; set; }
 
-            public string? StreetAdress { get; set; }
+            public string? StreetAddress { get; set; }
             public string? City { get; set; }
             public string? State { get; set; }
             public string? PostalCode { get; set; }
@@ -150,7 +150,7 @@ namespace FictionWeb.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
-                user.StreeAddress = Input.StreetAdress;
+                user.StreeAddress = Input.StreetAddress;
                 user.Name = Input.Name;
                 user.City = Input.City;
                 user.State = Input.State;

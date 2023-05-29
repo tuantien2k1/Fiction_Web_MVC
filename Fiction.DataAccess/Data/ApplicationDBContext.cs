@@ -11,6 +11,7 @@ namespace Fiction.DataAccess.Data
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,6 +22,11 @@ namespace Fiction.DataAccess.Data
                 new Category { ID = 1, Name = "Action", DisplayOrder = 1},
                 new Category { ID = 2, Name = "Victory", DisplayOrder = 2 },
                 new Category { ID = 3, Name = "History", DisplayOrder = 3 }
+                );
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Ha Long Sulution", StreetAdress = "123 Ha Long", City = "Ha Long City", PostalCode = "123321", State ="IK", PhoneNumber = "0234951456"},
+                new Company { Id = 2, Name = "Vinh Thinh Sudio", StreetAdress = "231 Vinh Thuan", City = "Vinh Thuan City", PostalCode = "124421", State = "IU", PhoneNumber = "023232356" },
+                new Company { Id = 3, Name = "Tien Phat Media", StreetAdress = "222 Cu Chi", City = "Cu Chi City", PostalCode = "125891", State = "IO", PhoneNumber = "02343232156" }
                 );
             modelBuilder.Entity<Product>().HasData(
                 new Product
