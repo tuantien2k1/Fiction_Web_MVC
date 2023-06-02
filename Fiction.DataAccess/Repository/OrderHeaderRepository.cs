@@ -28,12 +28,12 @@ namespace Fiction.DataAccess.Repository
             if (orderFromDb != null)
             {
                 orderFromDb.OrderStatus = orderStatus;
-                if (!string.IsNullOrEmpty(orderStatus))
+                if (!string.IsNullOrEmpty(paymentStatus))
                 {
                     orderFromDb.PaymentStatus = paymentStatus;
                 }
             }
-		}
+        }
 
 		public void UpdateStripePaymentId(int id, string sessionId, string? paymentIntentId)
 		{
