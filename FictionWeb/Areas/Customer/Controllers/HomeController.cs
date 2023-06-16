@@ -20,13 +20,18 @@ namespace FictionWeb.Areas.Customer.Controllers
             _logger = logger;
             _unitOfWork = unitOfWork;
         }
-
         public IActionResult Index()
         {
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
+            if (User.FindFirst(ClaimTypes.NameIdentifier) != null)
+            {
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                HttpContext.Session.SetInt32(SD.SessionCart,
+                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
+            }
             return View(productList);
         }
-
+     
         public IActionResult Details(int productid)
         {
             ShoppingCart cart = new()
@@ -45,12 +50,13 @@ namespace FictionWeb.Areas.Customer.Controllers
             shoppingCart.ApplicationUserId = userId;
 
             ShoppingCart cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
+            
             if (cartFromDb != null)
             {
                 // shopping cart exists
                 cartFromDb.Count += shoppingCart.Count;
+                _unitOfWork.ShoppingCart.Update(cartFromDb); 
                 _unitOfWork.Save();
-                _unitOfWork.ShoppingCart.Update(cartFromDb);
             }
             else
             {
@@ -60,6 +66,7 @@ namespace FictionWeb.Areas.Customer.Controllers
                 HttpContext.Session.SetInt32(SD.SessionCart,
                 _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
             }
+            
             TempData["success"] = "Cart updated successfully";
             return RedirectToAction(nameof(Index));
         }

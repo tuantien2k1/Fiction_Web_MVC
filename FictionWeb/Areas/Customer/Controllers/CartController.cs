@@ -196,6 +196,8 @@ namespace FictionWeb.Areas.Customer.Controllers
             if (cartFromDb.Count <= 1)
             {
                 _unitOfWork.ShoppingCart.Remove(cartFromDb);
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.
+                    GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             }
             else
             {
@@ -208,7 +210,9 @@ namespace FictionWeb.Areas.Customer.Controllers
         public IActionResult Remove(int cartId)
         {
             var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
-            _unitOfWork.ShoppingCart.Remove(cartFromDb);
+            _unitOfWork.ShoppingCart.Remove(cartFromDb); 
+            HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.
+                GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             _unitOfWork.Save();
             return RedirectToAction("Index");
         }
