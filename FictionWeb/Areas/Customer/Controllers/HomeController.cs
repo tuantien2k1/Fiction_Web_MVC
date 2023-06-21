@@ -23,12 +23,7 @@ namespace FictionWeb.Areas.Customer.Controllers
         public IActionResult Index()
         {
             IEnumerable<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category");
-            if (User.FindFirst(ClaimTypes.NameIdentifier) != null)
-            {
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                HttpContext.Session.SetInt32(SD.SessionCart,
-                _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId).Count());
-            }
+            
             return View(productList);
         }
      
