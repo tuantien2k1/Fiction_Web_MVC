@@ -5,10 +5,10 @@ using System.Security.Claims;
 
 namespace FictionWeb.ViewComponents
 {
-    public class ShoppingCartViewComponents:ViewComponent
+    public class ShoppingCartViewComponent : ViewComponent
     {
         private readonly IUnitOfWork _unitOfWork;
-        public ShoppingCartViewComponents(IUnitOfWork unitOfWork)
+        public ShoppingCartViewComponent(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -19,7 +19,7 @@ namespace FictionWeb.ViewComponents
 
             if(claim != null)
             {
-                if (HttpContext.Session.GetInt32(SD.SessionCart) != null)
+                if (HttpContext.Session.GetInt32(SD.SessionCart) == null)
                 {
                     HttpContext.Session.SetInt32(SD.SessionCart,
                     _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == claim.Value).Count());
